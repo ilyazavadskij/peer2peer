@@ -191,7 +191,7 @@ public class ChatClient extends Application {
         startVBox.setSpacing(10);
         startVBox.getChildren().addAll(usernameHBox, hostHBox, portHBox, buttonHBox);
 
-        startScene = new Scene(startVBox, 240, 240);
+        startScene = new Scene(startVBox, 240, 260);
 
         messagesView.setItems(messages);
 
@@ -208,7 +208,7 @@ public class ChatClient extends Application {
         root.setCenter(messagesView);
         root.setBottom(pane);
 
-        chatScene = new Scene(root, 480, 480);
+        chatScene = new Scene(root, 480, 520);
 
         primaryStage.setScene(startScene);
         primaryStage.show();

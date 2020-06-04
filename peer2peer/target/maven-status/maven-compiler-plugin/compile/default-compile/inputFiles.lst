@@ -1,2 +1,5 @@
+D:\Programming\IdeaProjects\peer2peer\src\main\java\com\spbsu\grpc\server\ChatServer.java
+D:\Programming\IdeaProjects\peer2peer\src\main\java\com\spbsu\grpc\service\ChatServiceImpl.java
 D:\Programming\IdeaProjects\peer2peer\src\main\java\com\spbsu\grpc\chat\ChatServiceGrpc.java
 D:\Programming\IdeaProjects\peer2peer\src\main\java\com\spbsu\grpc\chat\Chat.java
+D:\Programming\IdeaProjects\peer2peer\src\main\java\com\spbsu\grpc\client\ChatClient.java
