@@ -10,8 +10,8 @@ import java.io.IOException;
 @Slf4j
 public class ChatServer {
 
-    public boolean isStarted;
-    public boolean isStopped;
+    private boolean isStarted;
+    private boolean isStopped;
 
     private Server server;
     private String host;

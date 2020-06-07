@@ -239,7 +239,7 @@ public class ChatClient extends Application {
         channel = null;
       }
       
-      if (server != null && !server.isStopped) {
+      if (server != null && server.ready()) {
         server.stop();
         server = null;
       }
