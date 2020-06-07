@@ -6,13 +6,21 @@ import com.spbsu.grpc.chat.ChatServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * Chat Service class
+ * extends ChatServiceGrpc.ChatServiceImplBase
+ */
 @Slf4j
 public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
 
+    private Queue<Chat.ChatMessage> chatMessages = new ConcurrentLinkedQueue<>();
     private Set<StreamObserver<Chat.ChatMessageFromServer>> observers = ConcurrentHashMap.newKeySet();
     private Map<StreamObserver<Chat.ChatMessageFromServer>, String> observerToFrom = new ConcurrentHashMap<>();
 
@@ -29,6 +37,8 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
             public void onNext(Chat.ChatMessage chatMessage) {
                 String hostPort = chatMessage.getHost() + ":" + chatMessage.getPort();
                 String from = chatMessage.getFrom();
+
+                chatMessages.add(chatMessage);
 
                 if (!observerToFrom.containsKey(responseObserver)) {
                     if (!observerToFrom.containsValue(from)) {
@@ -66,5 +76,9 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
                 log.info("{} disconnected", responseObserver);
             }
         };
+    }
+
+    public Queue<Chat.ChatMessage> getChatMessages() {
+        return chatMessages;
     }
 }

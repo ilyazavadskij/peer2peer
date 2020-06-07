@@ -1,21 +1,38 @@
 package com.spbsu.grpc.server;
 
+import com.spbsu.grpc.chat.Chat;
 import com.spbsu.grpc.service.ChatServiceImpl;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
+/**
+ * Chat Server class
+ * that uses ChatServiceImpl
+ */
 @Slf4j
 public class ChatServer {
+
+    private Server server;
+    private ChatServiceImpl chatService;
+    private String host;
+    private String port;
 
     private boolean isStarted;
     private boolean isStopped;
 
-    private Server server;
-    private String host;
-    private String port;
+    public ChatServer(String port) {
+        this.host = "localhost";
+        this.port = port;
+
+        this.isStarted = false;
+        this.isStopped = false;
+    }
 
     public ChatServer(String host, String port) {
         this.isStarted = false;
@@ -26,9 +43,11 @@ public class ChatServer {
 
     public void start() {
         try {
+            chatService = new ChatServiceImpl();
+
             server = ServerBuilder
                     .forPort(Integer.parseInt(port))
-                    .addService(new ChatServiceImpl())
+                    .addService(chatService)
                     .build();
 
             server.start();
@@ -53,7 +72,11 @@ public class ChatServer {
         return isStarted && !isStopped;
     }
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public List<Chat.ChatMessage> getMessages() {
+        return new LinkedList<>(chatService.getChatMessages());
+    }
+
+    public static void main(String[] args) {
         ChatServer chatServer = new ChatServer("localhost", "9090");
         chatServer.start();
     }
