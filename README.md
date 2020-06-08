@@ -1,4 +1,4 @@
-# peer2peer Chat
+﻿# peer2peer Chat
 A simple peer-to-peer chat.
 
 ## Requirements:
@@ -6,7 +6,7 @@ A simple peer-to-peer chat.
 
 ## Build and Run: 
 1. `git clone https://github.com/ilyazavadskij/peer2peer.git`
-2. `cd peer2peer/peer2peer`
+2. `cd peer2peer`
 3. `mvn package`
 4. `java -jar target/peer2peer-jar-with-dependencies.jar`
 
