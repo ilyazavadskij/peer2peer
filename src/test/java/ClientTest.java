@@ -1,4 +1,3 @@
-import com.spbsu.grpc.ChatApplication;
 import com.spbsu.grpc.chat.Chat;
 import com.spbsu.grpc.client.ChatClient;
 import com.spbsu.grpc.server.ChatServer;
@@ -7,17 +6,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.mockito.Matchers.anyString;
-import static org.powermock.api.mockito.PowerMockito.doNothing;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @Slf4j
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ChatApplication.class)
 public class ClientTest {
 
     private String username = "name";
@@ -28,9 +18,6 @@ public class ClientTest {
 
     @Test
     public void checkClientStarted() throws Exception {
-        mockStatic(ChatApplication.class);
-        doNothing().when(ChatApplication.class, "addMessage", anyString(), anyString());
-
         ChatClient chatClient = new ChatClient(username, host, port);
         chatClient.start();
 
@@ -47,9 +34,6 @@ public class ClientTest {
 
     @Test
     public void checkClientStartedStopped() throws Exception {
-        mockStatic(ChatApplication.class);
-        doNothing().when(ChatApplication.class, "addMessage", anyString(), anyString());
-
         ChatClient chatClient = new ChatClient(username, host, port);
 
         chatClient.start();
@@ -85,9 +69,6 @@ public class ClientTest {
 
     @Test
     public void sendMessage() throws Exception {
-        mockStatic(ChatApplication.class);
-        doNothing().when(ChatApplication.class, "addMessage", anyString(), anyString());
-
         ChatClient chatClient = new ChatClient(username, host, port);
         chatClient.start();
 
@@ -112,6 +93,7 @@ public class ClientTest {
 
         Assert.assertEquals(chatServer.getMessages().get(0), chatMessage);
 
+        chatClient.stop();
         log.info("Successful Test: sendMessage");
     }
 

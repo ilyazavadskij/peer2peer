@@ -6,7 +6,7 @@ import org.junit.Test;
 @Slf4j
 public class ServerTest {
 
-    private String port = "9090";
+    private String port = "7070";
 
     @Test
     public void checkServerStarted() {
@@ -22,6 +22,12 @@ public class ServerTest {
         Assert.assertTrue(chatServer.ready());
         log.info("Successful Test: checkServerStarted");
         chatServer.stop();
+
+        startTime = System.currentTimeMillis();
+        stopTime = System.currentTimeMillis();
+        while (stopTime - startTime < 5000) {
+            stopTime = System.currentTimeMillis();
+        }
     }
 
     @Test
@@ -39,7 +45,7 @@ public class ServerTest {
         chatServer.stop();
         startTime = System.currentTimeMillis();
         stopTime = System.currentTimeMillis();
-        while (stopTime - startTime < 5000 && !chatServer.ready()) {
+        while (stopTime - startTime < 5000) {
             stopTime = System.currentTimeMillis();
         }
         Assert.assertFalse(chatServer.ready());
